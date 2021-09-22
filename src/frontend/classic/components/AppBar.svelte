@@ -22,6 +22,7 @@
         viewerMode,
         inversedReading,
         doublePage,
+        mangaViewerTransition,
     } from "../utils/storage";
     import { viewerModesSelect } from "../utils/viewerMode";
 
@@ -106,6 +107,15 @@
                     <SettingToggle
                         store={doublePage}
                         storageKey={settings.DOUBLE_PAGE.KEY}
+                    />
+                </SettingItem>
+                <SettingItem
+                    labelText="Transition"
+                    helperText="Use a smooth transition for reading"
+                >
+                    <SettingToggle
+                        store={mangaViewerTransition}
+                        storageKey={settings.MANGA_VIEWER_TRANSITION.KEY}
                     />
                 </SettingItem>
             {/if}

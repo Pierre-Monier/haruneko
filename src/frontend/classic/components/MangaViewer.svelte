@@ -7,7 +7,11 @@
     import WideViewerImage from "./WideViewerImage.svelte";
     import { onMount } from "svelte";
     import { preloadImage } from "../utils/image";
-    import { inversedReading, doublePage } from "../utils/storage";
+    import {
+        inversedReading,
+        doublePage,
+        mangaViewerTransition,
+    } from "../utils/storage";
 
     type ChapterImages = { src: string; nextSrc: string | undefined };
 
@@ -153,7 +157,11 @@
 
 {#if chapterImages}
     <div
-        class={$inversedReading ? "is-inversed container" : "container"}
+        class={$inversedReading && $mangaViewerTransition
+            ? "is-inversed transition container"
+            : $inversedReading
+            ? "is-inversed container"
+            : "container"}
         style="transform: translateX({offset}px)"
     >
         {#each chapterImages as chapterImage, index}
@@ -199,6 +207,9 @@
 <style>
     .container {
         width: 100%;
+    }
+
+    .transition {
         transition: transform 0.4s ease-in-out;
     }
 

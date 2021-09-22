@@ -88,6 +88,10 @@ export const settings = {
     DOUBLE_PAGE: {
         KEY: "DOUBLE_PAGE",
         DEFAULT_VALUE: false
+    },
+    MANGA_VIEWER_TRANSITION: {
+        KEY: "MANGA_VIEWER_TRANSITION",
+        DEFAULT_VALUE: true
     }
 }
 
@@ -104,3 +108,4 @@ export const theme = writable(String(getSettingDefaultValue(settings.THEME.KEY, 
 export const viewerMode = writable(String(getSettingDefaultValue(settings.VIEWER_MODE.KEY, settings.VIEWER_MODE.DEFAULT_VALUE)));
 export const inversedReading = writable(castBooleanSetting(getSettingDefaultValue(settings.INVERSED_READING.KEY, settings.INVERSED_READING.DEFAULT_VALUE)));
 export const doublePage = writable(castBooleanSetting(getSettingDefaultValue(settings.DOUBLE_PAGE.KEY, settings.DOUBLE_PAGE.DEFAULT_VALUE)));
+export const mangaViewerTransition = writable(castBooleanSetting(getSettingDefaultValue(settings.MANGA_VIEWER_TRANSITION.KEY, settings.MANGA_VIEWER_TRANSITION.DEFAULT_VALUE)));
