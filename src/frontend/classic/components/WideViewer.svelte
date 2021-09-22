@@ -43,5 +43,6 @@
     .manga {
         display: flex;
         align-items: center;
+        overflow-x: hidden;
     }
 </style>

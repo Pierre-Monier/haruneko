@@ -17,11 +17,22 @@
     export let currentImageIndex: number;
 
     let chapterImages: ChapterImages[] | undefined = undefined;
-    const carbonLgBreakpoint = 1056;
-    const carbonMaxBreakpoint = 1584;
-    const minImageWidth = 50;
-    const maxImageWidth = 100;
-    let imageWidth: number;
+
+    // We must return a totalPaginationPixels based on the reading flow
+    const readingPaginationFactor = (bool: boolean, input: number): number => {
+        return bool ? input : -input;
+    };
+
+    $: totalPaginationPixels = 1 * paginationFactor;
+    $: offset =
+        currentImageIndex *
+        readingPaginationFactor($inversedReading, totalPaginationPixels);
+
+    let paginationFactor: number;
+
+    const setPaginationFactor = () => {
+        paginationFactor = nw.Window.get().width;
+    };
 
     const handleKeyDown = (evt: KeyboardEvent) => {
         if (
@@ -46,23 +57,6 @@
     const decrementCurrentImage = () => {
         if (currentImageIndex > 0) {
             currentImageIndex -= 1;
-        }
-    };
-
-    const setImageWidth = () => {
-        const winWidth = nw.Window.get().width;
-
-        if (winWidth < carbonLgBreakpoint) {
-            imageWidth = maxImageWidth;
-        } else if (winWidth > carbonMaxBreakpoint) {
-            imageWidth = minImageWidth;
-        } else {
-            // smooth transition from 100% to 50%
-            imageWidth =
-                ((maxImageWidth - minImageWidth) /
-                    (carbonLgBreakpoint - carbonMaxBreakpoint)) *
-                    (winWidth - carbonLgBreakpoint) +
-                maxImageWidth;
         }
     };
 
@@ -147,71 +141,73 @@
     };
 
     onMount(async () => {
-        setImageWidth();
+        setPaginationFactor();
         chapterImages = await getChapterImages();
     });
 </script>
 
 <svelte:window
     on:keydown={(evt) => handleKeyDown(evt)}
-    on:resize={() => setImageWidth()}
+    on:resize={() => setPaginationFactor()}
 />
 
 {#if chapterImages}
-    {#each chapterImages as chapterImage, index}
-        {#if chapterImage.nextSrc !== undefined}
-            <div
-                class={currentImageIndex === index && $inversedReading
-                    ? "current is-inversed"
-                    : currentImageIndex === index
-                    ? "current"
-                    : ""}
-            >
-                <WideViewerImage
-                    alt="content_{currentImageIndex}"
-                    src={chapterImage.src}
-                    class="manga-image double-page-image"
-                    style="padding-top: {imagePadding}em; padding-bottom: {imagePadding}em; padding-right: {imagePadding}em; padding-left: {imagePadding /
-                        2}em;"
-                    {throttlingDelay}
-                />
-                <WideViewerImage
-                    alt="content_{currentImageIndex}"
-                    src={chapterImage.nextSrc}
-                    class="manga-image double-page-image"
-                    style="padding-top: {imagePadding}em; padding-bottom: {imagePadding}em; padding-left: {imagePadding}em; padding-right: {imagePadding /
-                        2}em;"
-                    {throttlingDelay}
-                />
-            </div>
-        {:else}
-            <div class={currentImageIndex === index ? "current" : ""}>
-                <WideViewerImage
-                    alt="content_{currentImageIndex}"
-                    src={chapterImage.src}
-                    class="manga-image"
-                    style="padding: {imagePadding}em; max-width: 100%; ;"
-                    {throttlingDelay}
-                />
-            </div>
-        {/if}
-    {/each}
+    <div
+        class={$inversedReading ? "is-inversed container" : "container"}
+        style="transform: translateX({offset}px)"
+    >
+        {#each chapterImages as chapterImage, index}
+            {#if chapterImage.nextSrc !== undefined}
+                <div
+                    style="min-width: {paginationFactor}px;"
+                    class:is-inversed={$inversedReading}
+                >
+                    <WideViewerImage
+                        alt="content_{currentImageIndex}"
+                        src={chapterImage.src}
+                        class="manga-image double-page-image"
+                        style="padding-top: {imagePadding}em; padding-bottom: {imagePadding}em; padding-right: {imagePadding}em; padding-left: {imagePadding /
+                            2}em;"
+                        {throttlingDelay}
+                    />
+                    <WideViewerImage
+                        alt="content_{currentImageIndex}"
+                        src={chapterImage.nextSrc}
+                        class="manga-image double-page-image"
+                        style="padding-top: {imagePadding}em; padding-bottom: {imagePadding}em; padding-left: {imagePadding}em; padding-right: {imagePadding /
+                            2}em;"
+                        {throttlingDelay}
+                    />
+                </div>
+            {:else}
+                <div style="min-width: {paginationFactor}px;">
+                    <WideViewerImage
+                        alt="content_{currentImageIndex}"
+                        src={chapterImage.src}
+                        class="manga-image"
+                        style="padding: {imagePadding}em; max-width: 100%; ;"
+                        {throttlingDelay}
+                    />
+                </div>
+            {/if}
+        {/each}
+    </div>
 {:else}
     <Loading description="Loading images" />
 {/if}
 
 <style>
-    div {
+    .container {
         width: 100%;
+        transition: transform 0.4s ease-in-out;
+    }
+
+    div {
         height: 100%;
-        display: none;
+        display: flex;
     }
 
     .is-inversed {
         flex-flow: row-reverse;
-    }
-
-    .current {
-        display: flex;
     }
 </style>
