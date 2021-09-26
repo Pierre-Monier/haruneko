@@ -22,14 +22,15 @@
         display: block;
         margin-left: auto !important;
         margin-right: auto !important;
-        /* background-color: azure; */
+        width: 100%;
     }
 
     .double-page-image {
-        width: 50%;
+        width: 50% !important;
     }
 
     .manga-image {
         max-height: 100%;
+        width: auto;
     }
 </style>

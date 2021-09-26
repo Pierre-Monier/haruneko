@@ -11,13 +11,14 @@
         inversedReading,
         doublePage,
         mangaViewerTransition,
+        horizontalMargin,
+        verticalMargin,
     } from "../utils/settings";
 
     type ChapterImages = { src: string; nextSrc: string | undefined };
 
     export let item: IMediaContainer;
     export let throttlingDelay: number;
-    export let imagePadding: number;
     export let currentImageIndex: number;
 
     let chapterImages: Promise<ChapterImages[]> = getChapterImages();
@@ -176,16 +177,16 @@
                         alt="content_{currentImageIndex}"
                         src={chapterImage.src}
                         class="manga-image double-page-image"
-                        style="padding-top: {imagePadding}em; padding-bottom: {imagePadding}em; padding-right: {imagePadding}em; padding-left: {imagePadding /
-                            2}em;"
+                        style="padding: {$verticalMargin}px {$horizontalMargin /
+                            2}px;"
                         {throttlingDelay}
                     />
                     <WideViewerImage
                         alt="content_{currentImageIndex}"
                         src={chapterImage.nextSrc}
                         class="manga-image double-page-image"
-                        style="padding-top: {imagePadding}em; padding-bottom: {imagePadding}em; padding-left: {imagePadding}em; padding-right: {imagePadding /
-                            2}em;"
+                        style="padding: {$verticalMargin}px {$horizontalMargin /
+                            2}px;"
                         {throttlingDelay}
                     />
                 </div>
@@ -195,7 +196,7 @@
                         alt="content_{currentImageIndex}"
                         src={chapterImage.src}
                         class="manga-image"
-                        style="padding: {imagePadding}em; max-width: 100%; ;"
+                        style="padding: {$verticalMargin}px {$horizontalMargin}px;"
                         {throttlingDelay}
                     />
                 </div>

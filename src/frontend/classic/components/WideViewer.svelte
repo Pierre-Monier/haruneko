@@ -17,14 +17,9 @@
 <div class={$viewerMode}>
     <WideViewerSetting {title} {toggleThumbnailViewer} />
     {#if $viewerMode === "vertical"}
-        <WebtoonViewer {item} {throttlingDelay} {imagePadding} />
+        <WebtoonViewer {item} {throttlingDelay} />
     {:else if $viewerMode === "horizontal"}
-        <MangaViewer
-            {item}
-            {currentImageIndex}
-            {throttlingDelay}
-            {imagePadding}
-        />
+        <MangaViewer {item} {currentImageIndex} {throttlingDelay} />
     {/if}
 </div>
 

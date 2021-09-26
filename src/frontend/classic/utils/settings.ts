@@ -90,6 +90,14 @@ export const settings = {
     MANGA_VIEWER_TRANSITION: {
         KEY: "MANGA_VIEWER_TRANSITION",
         DEFAULT_VALUE: true
+    },
+    HORIZONTAL_MARGIN: {
+        KEY: "HORIZONTAL_MARGIN",
+        DEFAULT_VALUE: 2
+    },
+    VERTICAL_MARGIN: {
+        KEY: "VERTICAL_MARGIN",
+        DEFAULT_VALUE: 2
     }
 };
 
@@ -107,3 +115,5 @@ export const viewerMode = writable(String(getSettingDefaultValue(settings.VIEWER
 export const inversedReading = writable(castBooleanSetting(getSettingDefaultValue(settings.INVERSED_READING.KEY, settings.INVERSED_READING.DEFAULT_VALUE)));
 export const doublePage = writable(castBooleanSetting(getSettingDefaultValue(settings.DOUBLE_PAGE.KEY, settings.DOUBLE_PAGE.DEFAULT_VALUE)));
 export const mangaViewerTransition = writable(castBooleanSetting(getSettingDefaultValue(settings.MANGA_VIEWER_TRANSITION.KEY, settings.MANGA_VIEWER_TRANSITION.DEFAULT_VALUE)));
+export const horizontalMargin = writable(Number(getSettingDefaultValue(settings.HORIZONTAL_MARGIN.KEY, settings.HORIZONTAL_MARGIN.DEFAULT_VALUE)));
+export const verticalMargin = writable(Number(getSettingDefaultValue(settings.VERTICAL_MARGIN.KEY, settings.VERTICAL_MARGIN.DEFAULT_VALUE)));

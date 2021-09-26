@@ -36,6 +36,8 @@
         inversedReading,
         doublePage,
         mangaViewerTransition,
+        horizontalMargin,
+        verticalMargin,
     } from "../utils/settings";
     import { viewerModesSelect } from "../utils/viewerMode";
 
@@ -212,6 +214,30 @@
                     />
                 </SettingItem>
             {/if}
+            <SettingItem
+                labelText="Horizontal margin"
+                helperText="Images horizontal margin (min: 0px, max: 200px)"
+            >
+                <SettingInput
+                    store={horizontalMargin}
+                    storageKey={settings.HORIZONTAL_MARGIN.KEY}
+                    type="number"
+                    min={0}
+                    max={200}
+                />
+            </SettingItem>
+            <SettingItem
+                labelText="Vertical margin"
+                helperText="Images vertical margin (min: 0px, max: 200px)"
+            >
+                <SettingInput
+                    store={verticalMargin}
+                    storageKey={settings.VERTICAL_MARGIN.KEY}
+                    type="number"
+                    min={0}
+                    max={200}
+                />
+            </SettingItem>
         </SideNavMenu>
         <SideNavMenu text="Help">
             <SideNavLink
