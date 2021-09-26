@@ -43,6 +43,6 @@
     .horizontal {
         display: flex;
         align-items: center;
-        overflow-x: hidden;
+        overflow: hidden;
     }
 </style>
