@@ -20,7 +20,7 @@
     export let imagePadding: number;
     export let currentImageIndex: number;
 
-    let chapterImages: ChapterImages[] | undefined = undefined;
+    let chapterImages: Promise<ChapterImages[]> = getChapterImages();
 
     // We must return a totalPaginationPixels based on the reading flow
     function readingPaginationFactor(bool: boolean, input: number): number {
@@ -53,7 +53,8 @@
     }
 
     async function nextImage() {
-        if (chapterImages && currentImageIndex < chapterImages.length - 1) {
+        const imagesLenght = (await chapterImages).length;
+        if (imagesLenght && currentImageIndex < imagesLenght - 1) {
             currentImageIndex += 1;
         }
     }
@@ -144,9 +145,8 @@
         return convertImagesToChapterImages(images);
     }
 
-    onMount(async () => {
+    onMount(() => {
         setPaginationFactor();
-        chapterImages = await getChapterImages();
     });
 </script>
 
@@ -155,7 +155,9 @@
     on:resize={() => setPaginationFactor()}
 />
 
-{#if chapterImages}
+{#await chapterImages}
+    <Loading description="Loading images" />
+{:then chapterImages}
     <div
         class={$inversedReading && $mangaViewerTransition
             ? "is-inversed transition container"
@@ -164,7 +166,7 @@
             : "container"}
         style="transform: translateX({offset}px)"
     >
-        {#each chapterImages as chapterImage, index}
+        {#each chapterImages as chapterImage}
             {#if chapterImage.nextSrc !== undefined}
                 <div
                     style="min-width: {paginationFactor}px;"
@@ -200,9 +202,9 @@
             {/if}
         {/each}
     </div>
-{:else}
-    <Loading description="Loading images" />
-{/if}
+{:catch error}
+    <p style="color: red">{error}</p>
+{/await}
 
 <style>
     .container {
