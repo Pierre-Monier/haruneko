@@ -82,7 +82,7 @@
             </SettingItem>
             <SettingItem
                 labelText="Viewer mode"
-                helperText="You can change the viewer mode (webtoon or manga)"
+                helperText="You can change the viewer mode : horizontal / vertical"
             >
                 <SettingSelect
                     store={viewerMode}
@@ -90,7 +90,7 @@
                     items={viewerModesSelect}
                 />
             </SettingItem>
-            {#if $viewerMode === "manga"}
+            {#if $viewerMode === "horizontal"}
                 <SettingItem
                     labelText="Inverse reading"
                     helperText="Inverse the reading (like a real manga)"

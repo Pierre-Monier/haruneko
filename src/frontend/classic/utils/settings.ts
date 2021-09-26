@@ -77,7 +77,7 @@ export const settings = {
     },
     VIEWER_MODE: {
         KEY: "VIEWER_MODE",
-        DEFAULT_VALUE: "webtoon"
+        DEFAULT_VALUE: "vertical"
     },
     INVERSED_READING: {
         KEY: "INVERSED_READING",

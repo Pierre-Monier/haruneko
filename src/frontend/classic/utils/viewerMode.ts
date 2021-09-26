@@ -1,4 +1,4 @@
 export const viewerModesSelect = [
-    { id: "webtoon", label: "Webtoon" },
-    { id: "manga", label: "Manga" },
+    { id: "vertical", label: "Vertical" },
+    { id: "horizontal", label: "Horizontal" },
 ];

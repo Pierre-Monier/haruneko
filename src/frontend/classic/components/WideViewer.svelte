@@ -16,9 +16,9 @@
 
 <div class={$viewerMode}>
     <WideViewerSetting {title} {toggleThumbnailViewer} />
-    {#if $viewerMode === "webtoon"}
+    {#if $viewerMode === "vertical"}
         <WebtoonViewer {item} {throttlingDelay} {imagePadding} />
-    {:else if $viewerMode === "manga"}
+    {:else if $viewerMode === "horizontal"}
         <MangaViewer
             {item}
             {currentImageIndex}
@@ -40,7 +40,7 @@
         background-color: var(--cds-ui-01);
     }
 
-    .manga {
+    .horizontal {
         display: flex;
         align-items: center;
         overflow-x: hidden;
