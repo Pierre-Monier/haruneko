@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { IMediaContainer } from "../../../engine/providers/MediaPlugin";
-    import { viewerMode } from "../utils/storage";
+    import { viewerMode } from "../utils/settings";
     import WideViewerSetting from "./WideViewerSetting.svelte";
     import WebtoonViewer from "./WebtoonViewer.svelte";
     import MangaViewer from "./MangaViewer.svelte";

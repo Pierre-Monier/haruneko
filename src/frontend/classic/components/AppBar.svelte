@@ -23,7 +23,7 @@
         inversedReading,
         doublePage,
         mangaViewerTransition,
-    } from "../utils/storage";
+    } from "../utils/settings";
     import { viewerModesSelect } from "../utils/viewerMode";
 
     export let isSideNavOpen: boolean;

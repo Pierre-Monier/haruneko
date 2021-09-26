@@ -1,4 +1,4 @@
-import { cacheStorageKey } from "./storage";
+const cacheStorageKey = "hakuneko"
 
 export const preloadImage = async (src: string, throttlingDelay: number): Promise<void> => {
     const response = await caches.match(src)

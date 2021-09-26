@@ -1,8 +1,8 @@
 <script lang="ts">
-    import type { SettingValidator } from "../utils/storage";
+    import type { SettingValidator } from "../utils/settings";
     import type { Writable } from "svelte/store";
     import { TextInput } from "carbon-components-svelte";
-    import { updateStoreValue } from "../utils/storage";
+    import { updateStoreValue } from "../utils/settings";
 
     export let labelText = "Select directory";
     export let storageKey: string | undefined = undefined;

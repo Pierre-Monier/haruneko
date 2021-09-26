@@ -15,7 +15,7 @@
     import Viewer from "./components/Viewer.svelte";
     import AppBar from "./components/AppBar.svelte";
     import type { IMediaContainer } from "../../engine/providers/MediaPlugin";
-    import { showContentPanel, theme } from "./utils/storage";
+    import { showContentPanel, theme } from "./utils/settings";
 
     let resolveFinishLoading: (value: void | PromiseLike<void>) => void;
     export const FinishLoading = new Promise<void>(

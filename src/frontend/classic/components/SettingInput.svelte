@@ -1,12 +1,12 @@
 <script lang="ts">
     import type { Writable } from "svelte/store";
-    import type { SettingValidator } from "../utils/storage";
+    import type { SettingValidator } from "../utils/settings";
     import {
         TextInput,
         NumberInput,
         PasswordInput,
     } from "carbon-components-svelte";
-    import { updateStoreValue } from "../utils/storage";
+    import { updateStoreValue } from "../utils/settings";
     import FolderSelectorInput from "./FolderSelectorInput.svelte";
 
     export let store: Writable<string | number>;

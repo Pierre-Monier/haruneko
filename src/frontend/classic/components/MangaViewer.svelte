@@ -11,7 +11,7 @@
         inversedReading,
         doublePage,
         mangaViewerTransition,
-    } from "../utils/storage";
+    } from "../utils/settings";
 
     type ChapterImages = { src: string; nextSrc: string | undefined };
 
