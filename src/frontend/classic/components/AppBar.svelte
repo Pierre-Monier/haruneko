@@ -93,7 +93,7 @@
             {#if $viewerMode === "horizontal"}
                 <SettingItem
                     labelText="Inverse reading"
-                    helperText="Inverse the reading (like a real manga)"
+                    helperText="Inverse the reading direction"
                 >
                     <SettingToggle
                         store={inversedReading}
@@ -102,7 +102,7 @@
                 </SettingItem>
                 <SettingItem
                     labelText="Double page"
-                    helperText="Display two page at a time (like a real manga)"
+                    helperText="Display two page at a time"
                 >
                     <SettingToggle
                         store={doublePage}

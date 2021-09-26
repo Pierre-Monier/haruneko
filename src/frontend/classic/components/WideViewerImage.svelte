@@ -5,8 +5,6 @@
     export let throttlingDelay: number;
     export let src: string;
     export let alt: string;
-
-    console.log($$restProps);
 </script>
 
 {#await preloadImage(src, throttlingDelay) then _}
