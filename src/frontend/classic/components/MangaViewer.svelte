@@ -23,9 +23,9 @@
     let chapterImages: ChapterImages[] | undefined = undefined;
 
     // We must return a totalPaginationPixels based on the reading flow
-    const readingPaginationFactor = (bool: boolean, input: number): number => {
+    function readingPaginationFactor(bool: boolean, input: number): number {
         return bool ? input : -input;
-    };
+    }
 
     $: totalPaginationPixels = 1 * paginationFactor;
     $: offset =
@@ -34,39 +34,39 @@
 
     let paginationFactor: number;
 
-    const setPaginationFactor = () => {
+    function setPaginationFactor() {
         paginationFactor = nw.Window.get().width;
-    };
+    }
 
-    const handleKeyDown = (evt: KeyboardEvent) => {
+    function handleKeyDown(evt: KeyboardEvent) {
         if (
             (!$inversedReading && evt.key === "ArrowRight") ||
             ($inversedReading && evt.key === "ArrowLeft")
         ) {
-            incrementCurrentImage();
+            nextImage();
         } else if (
             (!$inversedReading && evt.key === "ArrowLeft") ||
             ($inversedReading && evt.key === "ArrowRight")
         ) {
-            decrementCurrentImage();
+            previousImage();
         }
-    };
+    }
 
-    const incrementCurrentImage = () => {
+    async function nextImage() {
         if (chapterImages && currentImageIndex < chapterImages.length - 1) {
             currentImageIndex += 1;
         }
-    };
+    }
 
-    const decrementCurrentImage = () => {
+    function previousImage() {
         if (currentImageIndex > 0) {
             currentImageIndex -= 1;
         }
-    };
+    }
 
-    const getPromiseImages = (
+    async function getImages(
         entries: IMediaChild[]
-    ): Promise<HTMLImageElement>[] => {
+    ): Promise<Promise<HTMLImageElement>[]> {
         return entries.map(async (entrie, index) => {
             const delay = throttlingDelay * index;
             await preloadImage(entrie.SourceURL, delay);
@@ -76,24 +76,24 @@
 
             return img;
         });
-    };
+    }
 
-    const awaitPromiseImages = async (
-        promiseImages: Promise<HTMLImageElement>[]
-    ): Promise<HTMLImageElement[]> => {
-        const images: HTMLImageElement[] = [];
+    async function awaitImages(
+        images: Promise<HTMLImageElement>[]
+    ): Promise<HTMLImageElement[]> {
+        const awaitedImages: HTMLImageElement[] = [];
 
-        for (const promiseImage of promiseImages) {
-            const image = await promiseImage;
-            images.push(image);
+        for (const image of images) {
+            const awaitedImage = await image;
+            awaitedImages.push(awaitedImage);
         }
 
-        return images;
-    };
+        return awaitedImages;
+    }
 
-    const convertImagesToChapterImages = (
+    function convertImagesToChapterImages(
         images: HTMLImageElement[]
-    ): ChapterImages[] => {
+    ): ChapterImages[] {
         const chapterImages: ChapterImages[] = [];
         let i = 0;
 
@@ -132,17 +132,17 @@
         }
 
         return chapterImages;
-    };
+    }
 
     // Convert URLs to a useful data structure
-    const getChapterImages = async (): Promise<ChapterImages[]> => {
-        const promiseImages = getPromiseImages(item.Entries);
+    async function getChapterImages(): Promise<ChapterImages[]> {
+        const promiseImages = await getImages(item.Entries);
 
         // We await all promises to have an HTMLImageElement[] instead of Promise<HTMLImageElement>[]
-        const images = await awaitPromiseImages(promiseImages);
+        const images = await awaitImages(promiseImages);
 
         return convertImagesToChapterImages(images);
-    };
+    }
 
     onMount(async () => {
         setPaginationFactor();
